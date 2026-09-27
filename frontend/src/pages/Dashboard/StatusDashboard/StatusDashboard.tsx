@@ -21,7 +21,7 @@
 
 import type { ColumnDef, PaginationState, SortingState } from '@tanstack/react-table';
 import type { TFunction } from 'i18next';
-import { ArrowRight, Check, Loader2, Newspaper, X } from 'lucide-react';
+import { ArrowRight, Check, Loader2, X } from 'lucide-react';
 import type { ReactNode } from 'react';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -41,7 +41,6 @@ import { DataTable } from '@/components/ui/table/DataTable';
 import { INITIAL_FILTER_STATE } from '@/pages/Displays/Displays/DisplaysConfig';
 import { useDisplaysData } from '@/pages/Displays/Displays/hooks/useDisplaysData';
 import type { Display } from '@/types/display';
-import { formatRelativeDate } from '@/utils/formatters';
 
 interface StatCardProps {
   icon: string;
@@ -70,48 +69,6 @@ function getDisplayCount(displayStatus: string | undefined): number {
 function parseJsonPair(json: string | undefined): [number, number] {
   if (!json) return [0, 0];
   return JSON.parse(json) as [number, number];
-}
-
-interface NewsItem {
-  title: string;
-  description: string;
-  link: string;
-  date: string;
-  image: string;
-}
-
-function stripHtml(html: string): string {
-  const div = document.createElement('div');
-  div.innerHTML = html;
-  return div.textContent ?? '';
-}
-
-function NewsArticle({ news }: { news: NewsItem }) {
-  const { t } = useTranslation();
-
-  return (
-    <div className="bg-slate-50 p-4 flex flex-col gap-y-3 border-b border-gray-200 last:border-b-0">
-      <div className="flex items-end justify-between gap-4">
-        <h4 className="text-[16px] font-semibold leading-snug text-gray-800">{news.title}</h4>
-        <span className="shrink-0 text-xs text-gray-500 uppercase font-semibold">
-          {formatRelativeDate(news.date, t)}
-        </span>
-      </div>
-      <p className="line-clamp-6 text-sm leading-relaxed text-gray-500">
-        {stripHtml(news.description)}
-      </p>
-      {news.link && (
-        <a
-          href={news.link}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-1 text-sm text-xibo-blue-600 hover:underline self-end"
-        >
-          {t('Full Article')} <ArrowRight className="h-3.5 w-3.5" />
-        </a>
-      )}
-    </div>
-  );
 }
 
 function getDisplayColumns(t: TFunction): ColumnDef<Display>[] {
@@ -184,8 +141,6 @@ export default function Dashboard() {
     { name: t('Not up-to-date'), value: notUpToDate, color: '#E5E7EB' },
   ];
 
-  const latestNews = (data?.latestNews ?? []) as NewsItem[];
-
   return (
     <section className="flex flex-col space-y-5 p-5">
       {error && (
@@ -201,8 +156,8 @@ export default function Dashboard() {
         <StatCard icon={users} value={userCount} label={t('Active Users')} />
       </div>
 
-      {/* Charts & News */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+      {/* Charts */}
+      <div className="grid grid-cols-1 gap-5">
         {/* Display Activity */}
         <div className="rounded-lg flex flex-col border border-gray-200 bg-slate-50 p-5 space-y-8">
           <div className="flex items-center justify-between">
@@ -223,29 +178,6 @@ export default function Dashboard() {
             <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
               <DisplayChart data={statusData} label={t('Status')} />
               <DisplayChart data={contentStatusData} label={t('Content Status')} />
-            </div>
-          )}
-        </div>
-
-        {/* Latest News */}
-        <div className="rounded-lg border border-gray-200 bg-white p-5 max-h-100 flex flex-col overflow-hidden">
-          <div className="mb-4 flex items-center gap-2">
-            <Newspaper className="h-5 w-5 text-gray-600" />
-            <h3 className="text-base font-semibold text-gray-800">{t('Latest News')}</h3>
-          </div>
-          {isLoading ? (
-            <div className="flex flex-col items-center justify-center h-full">
-              <Loader2 className="w-8 h-8 animate-spin text-gray-600" />
-              <span className="mt-2 text-gray-500">{t('Loading...')}</span>
-            </div>
-          ) : (
-            <div className="flex flex-col flex-1 overflow-auto">
-              {latestNews.map((news) => (
-                <NewsArticle key={news.link} news={news} />
-              ))}
-              {latestNews.length === 0 && (
-                <p className="text-sm text-gray-400">{t('No news available.')}</p>
-              )}
             </div>
           )}
         </div>
