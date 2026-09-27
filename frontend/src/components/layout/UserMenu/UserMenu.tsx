@@ -30,12 +30,12 @@ import {
   useInteractions,
   FloatingPortal,
 } from '@floating-ui/react';
-import { Settings, AppWindow, Lightbulb, Info, LogOut, PenLine } from 'lucide-react';
+import { Settings, AppWindow, Lightbulb, /* Info, */ LogOut, PenLine } from 'lucide-react';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
-import AboutModal from './AboutModal';
+// import AboutModal from './AboutModal';
 import ApplicationsModal from './ApplicationsModal';
 import PreferencesModal from './PreferencesModal';
 import ProfileEditModal from './ProfileEditModal';
@@ -169,11 +169,11 @@ export default function UserMenu() {
                 })}
                 onClick={handleNavigateToWelcome}
               />
-              <MenuItem
+              {/* <MenuItem
                 icon={<Info size={18} />}
                 label={t('About')}
                 onClick={() => openModal('about')}
-              />
+              /> */}
 
               {!user?.hideLogoutButton && (
                 <>
@@ -201,7 +201,7 @@ export default function UserMenu() {
 
       {activeModal === 'applications' && <ApplicationsModal onClose={() => setActiveModal(null)} />}
 
-      {activeModal === 'about' && <AboutModal onClose={() => setActiveModal(null)} />}
+      {/* {activeModal === 'about' && <AboutModal onClose={() => setActiveModal(null)} />} */}
     </>
   );
 }
