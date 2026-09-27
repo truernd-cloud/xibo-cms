@@ -19,13 +19,13 @@
  * along with Xibo.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { BarChart3, CalendarDays, Info, Layout, LayoutTemplate, Users } from 'lucide-react';
+import { BarChart3, CalendarDays, /* Info, */ Layout, LayoutTemplate, Users } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
-import { useState } from 'react';
+// import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
-import AboutModal from '@/components/layout/UserMenu/AboutModal';
+// import AboutModal from '@/components/layout/UserMenu/AboutModal';
 import { useUserContext } from '@/context/UserContext';
 import type { User } from '@/types/user';
 import { UserType } from '@/types/user';
@@ -72,19 +72,19 @@ const DASHBOARD_ITEMS: DashboardItem[] = [
     path: '/library/media',
     visible: (u) => hasFeature(u, 'library.view'),
   },
-  {
-    label: 'About',
-    icon: Info,
-    path: '/about',
-    action: 'about',
-    visible: () => true,
-  },
+  // {
+  //   label: 'About',
+  //   icon: Info,
+  //   path: '/about',
+  //   action: 'about',
+  //   visible: () => true,
+  // },
 ];
 
 export default function IconDashboard() {
   const { t } = useTranslation();
   const { user } = useUserContext();
-  const [showAbout, setShowAbout] = useState(false);
+  // const [showAbout, setShowAbout] = useState(false);
 
   const visibleItems = user ? DASHBOARD_ITEMS.filter((item) => item.visible(user)) : [];
 
@@ -110,7 +110,9 @@ export default function IconDashboard() {
               <button
                 key={item.path}
                 type="button"
-                onClick={() => item.action === 'about' && setShowAbout(true)}
+                onClick={() => {
+                  // item.action === 'about' && setShowAbout(true);
+                }}
                 className={cardClasses}
               >
                 {content}
@@ -126,7 +128,7 @@ export default function IconDashboard() {
         })}
       </div>
 
-      {showAbout && <AboutModal onClose={() => setShowAbout(false)} />}
+      {/* {showAbout && <AboutModal onClose={() => setShowAbout(false)} />} */}
     </div>
   );
 }
