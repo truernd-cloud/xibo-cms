@@ -265,9 +265,19 @@ export async function exportDatasetCsv(datasetId: number): Promise<void> {
   let fileName = `dataset-${datasetId}-.csv`;
 
   if (contentDisposition) {
-    const fileNameMatch = contentDisposition.match(/filename="?(.+)"?/);
-    if (fileNameMatch && fileNameMatch.length === 2) {
-      const rawFileName = fileNameMatch[1];
+    // Prefer the RFC 5987 UTF-8 name (keeps Korean etc.), fall back to the plain one.
+    const encodedMatch = contentDisposition.match(/filename\*=UTF-8''([^;]+)/i);
+    const plainMatch = contentDisposition.match(/filename="([^"]*)"/i);
+    let rawFileName: string | null = null;
+    if (encodedMatch) {
+      try {
+        rawFileName = decodeURIComponent(encodedMatch[1]);
+      } catch {
+        rawFileName = null;
+      }
+    }
+    rawFileName ??= plainMatch ? plainMatch[1] : null;
+    if (rawFileName) {
       const extensionMatch = rawFileName.match(/\.[^.]+$/);
       const extension = extensionMatch ? extensionMatch[0] : '';
       const base = extension ? rawFileName.slice(0, -extension.length) : rawFileName;

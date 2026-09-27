@@ -630,6 +630,8 @@ class Stats extends Base
         ]);
 
         $out = fopen($tempFileName, 'w');
+        // UTF-8 BOM so Excel shows non-ASCII (e.g. Korean) text correctly
+        fwrite($out, "\xEF\xBB\xBF");
         fputcsv(
             $out,
             [

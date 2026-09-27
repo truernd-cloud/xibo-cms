@@ -1391,6 +1391,8 @@ class DataSet extends Base
             Random::generateString() .'.csv';
 
         $out = fopen($tempFileName, 'w');
+        // UTF-8 BOM so Excel shows non-ASCII (e.g. Korean) text correctly
+        fwrite($out, "\xEF\xBB\xBF");
 
         foreach ($dataSet->getData() as $row) {
             $columnHeaders = [];

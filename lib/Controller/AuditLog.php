@@ -130,6 +130,8 @@ class AuditLog extends Base
 
         $tempFileName = $this->getConfig()->getSetting('LIBRARY_LOCATION') . 'temp/audittrail_' . Random::generateString();
         $out = fopen($tempFileName, 'w');
+        // UTF-8 BOM so Excel shows non-ASCII (e.g. Korean) text correctly
+        fwrite($out, "\xEF\xBB\xBF");
         fputcsv($out, ['ID', 'Date', 'User', 'Entity', 'EntityId', 'Message', 'Object'], ',', '"', '\\');
 
         foreach ($rows as $row) {

@@ -256,7 +256,8 @@ export function DataTable<TData, TValue>({
 
     const csvContent = [headers.join(','), ...rows.map((r) => r.join(','))].join('\n');
 
-    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    // UTF-8 BOM so Excel shows non-ASCII (e.g. Korean) text correctly
+    const blob = new Blob(['﻿', csvContent], { type: 'text/csv;charset=utf-8;' });
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;

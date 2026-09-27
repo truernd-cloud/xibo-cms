@@ -5,6 +5,7 @@ namespace Xibo\Service;
 use GuzzleHttp\Psr7\Stream;
 use Psr\Log\LoggerInterface;
 use Xibo\Helper\HttpCacheProvider;
+use Xibo\Helper\SendFile;
 
 class DownloadService
 {
@@ -49,7 +50,7 @@ class DownloadService
         $headers['Content-Length'] = filesize($this->filePath);
         $headers['Content-Type'] = 'application/octet-stream';
         $headers['Content-Transfer-Encoding'] = 'Binary';
-        $headers['Content-disposition'] = 'attachment; filename="' . $attachmentName . '"';
+        $headers['Content-disposition'] = SendFile::contentDisposition($attachmentName);
 
         // Output the file
         if ($this->sendFileMode === 'Apache') {

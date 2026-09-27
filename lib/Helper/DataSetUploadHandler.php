@@ -107,6 +107,10 @@ class DataSetUploadHandler extends BlueImpUploadHandler
             $firstRow = true;
             $i = 0;
             $handle = fopen($controller->getConfig()->getSetting('LIBRARY_LOCATION') . 'temp/' . $fileName, 'r');
+            // Skip a UTF-8 BOM (added by Excel and by our own CSV exports)
+            if (fread($handle, 3) !== "\xEF\xBB\xBF") {
+                rewind($handle);
+            }
             while (($data = fgetcsv($handle, null, ',', '"', '')) !== false) {
                 $i++;
 

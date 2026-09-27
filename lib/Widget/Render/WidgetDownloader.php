@@ -31,6 +31,7 @@ use Slim\Http\Response as Response;
 use Slim\Http\ServerRequest as Request;
 use Xibo\Entity\Media;
 use Xibo\Helper\HttpCacheProvider;
+use Xibo\Helper\SendFile;
 use Xibo\Support\Exception\InvalidArgumentException;
 use Xibo\Support\Exception\NotFoundException;
 use Xibo\Support\Sanitizer\SanitizerInterface;
@@ -114,7 +115,7 @@ class WidgetDownloader
 
             $headers['Content-Type'] = 'application/octet-stream';
             $headers['Content-Transfer-Encoding'] = 'Binary';
-            $headers['Content-disposition'] = 'attachment; filename="' . $attachmentName . '"';
+            $headers['Content-disposition'] = SendFile::contentDisposition($attachmentName);
         }
 
         // Output the file

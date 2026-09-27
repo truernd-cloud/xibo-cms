@@ -32,6 +32,16 @@ use Slim\Http\Response;
 class SendFile
 {
     /**
+     * Build an RFC 6266 Content-Disposition value so non-ASCII (e.g. Korean) filenames survive.
+     */
+    public static function contentDisposition(string $fileName, string $type = 'attachment'): string
+    {
+        $fallback = preg_replace('/[^\x20-\x7E]|["\\\\]/', '_', $fileName);
+
+        return $type . '; filename="' . $fallback . '"; filename*=UTF-8\'\'' . rawurlencode($fileName);
+    }
+
+    /**
      * @param \Slim\Http\Response $response
      * @param string $sendFile
      * @param string $filePath
@@ -48,7 +58,7 @@ class SendFile
         $baseName = basename($filePath);
         $response = $response
             ->withHeader('Content-Type', 'application/octet-stream')
-            ->withHeader('Content-Disposition', 'attachment; filename=' . ($name === null ? $baseName : $name))
+            ->withHeader('Content-Disposition', self::contentDisposition($name === null ? $baseName : $name))
             ->withHeader('Content-Transfer-Encoding', 'Binary')
             ->withHeader('Content-Length', filesize($filePath));
 
