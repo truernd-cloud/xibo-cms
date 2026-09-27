@@ -351,7 +351,7 @@ class Handlers
             'logoDarkUrl' => '/brand/' . $configService->getBrandLogoDarkFile(),
             'supportUrl'  => $configService->getThemeConfig('theme_url', 'https://xibosignage.com'),
             'version'     => Environment::$WEBSITE_VERSION_NAME,
-            'appName'     => $configService->getThemeConfig('app_name', 'Xibo'),
+            'appName'     => $configService->getThemeConfig('app_name', 'VMOS'),
             'i18n'        => $i18n,
         ]);
         $messageParams = array_merge($viewParams, [

@@ -344,7 +344,7 @@ class ConfigService implements ConfigServiceInterface
         $this->themeConfig = [
             'theme_name'     => 'Xibo Default Theme',
             'theme_title'    => 'Xibo Digital Signage',
-            'app_name'       => 'Xibo',
+            'app_name'       => 'VMOS',
             'theme_url'      => 'https://xibosignage.com',
             'cms_source_url'           => 'https://github.com/xibosignage/xibo-cms',
             'about_text'               => null,

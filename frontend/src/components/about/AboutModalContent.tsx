@@ -46,7 +46,7 @@ export function AboutModalContent() {
 
   const version = config?.version ?? '';
   const revision = config?.revision ?? '';
-  const appName = config?.appName ?? 'Xibo';
+  const appName = config?.appName ?? 'VMOS';
   const sourceUrl = config?.sourceUrl ?? 'https://github.com/xibosignage/xibo-cms';
   const aboutText = config?.aboutText ?? '';
 

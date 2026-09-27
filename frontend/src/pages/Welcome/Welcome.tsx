@@ -98,7 +98,7 @@ export default function Welcome() {
         <div className="flex flex-col items-center max-w-234.5 mx-auto">
           <h2 className="mb-1 text-3xl font-bold text-gray-900">
             {t('Welcome to the {{appName}} CMS', {
-              appName: user?.branding?.appName ?? 'Xibo',
+              appName: user?.branding?.appName ?? 'VMOS',
             })}
           </h2>
           <p className="text-gray-600">

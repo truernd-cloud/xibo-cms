@@ -35,7 +35,7 @@ const SIDEBAR_BG_PROPERTY = '--sidebar-bg';
 // faviconUrl below is only used as the collapsed-sidebar icon mark (SidebarHeader.tsx).
 const defaults: BrandingConfig = {
   productName: 'Xibo Digital Signage',
-  appName: 'Xibo',
+  appName: 'VMOS',
   logoUrl: '/brand/logo.svg',
   logoDarkUrl: '/brand/logo-dark.svg',
   faviconUrl: '/brand/logo-icon.svg',

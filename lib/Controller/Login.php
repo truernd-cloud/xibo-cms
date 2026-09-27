@@ -149,7 +149,7 @@ class Login extends Base
             'passwordReminderEnabled' => $passwordReminderEnabled,
             'authCASEnabled'          => $authCASEnabled,
             'version'                 => Environment::$WEBSITE_VERSION_NAME,
-            'appName'                 => $this->getConfig()->getThemeConfig('app_name', 'Xibo'),
+            'appName'                 => $this->getConfig()->getThemeConfig('app_name', 'VMOS'),
             'supportUrl'              => $this->getConfig()->getThemeConfig(
                 'theme_url',
                 'https://xibosignage.com'
@@ -517,7 +517,7 @@ class Login extends Base
         $payload = [
             'version'     => Environment::$WEBSITE_VERSION_NAME,
             'revision'    => Environment::getGitCommit(),
-            'appName'     => $this->getConfig()->getThemeConfig('app_name', 'Xibo'),
+            'appName'     => $this->getConfig()->getThemeConfig('app_name', 'VMOS'),
             'productName' => $this->getConfig()->getThemeConfig('theme_title', 'Xibo Digital Signage'),
             'logoUrl'     => $rootUri . 'brand/' . $logoFile,
             'logoIconUrl' => $rootUri . 'brand/' . $iconFile,

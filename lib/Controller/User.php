@@ -177,7 +177,7 @@ class User extends Base
 
         $branding = [
             'productName' => $brandConfig['productName'] ?? 'Xibo Digital Signage',
-            'appName'     => $brandConfig['appName']     ?? 'Xibo',
+            'appName'     => $brandConfig['appName']     ?? 'VMOS',
             'logoUrl'     => '/brand/' . $logoFile,
             'logoDarkUrl' => '/brand/' . $logoDarkFile,
             'faviconUrl'  => '/brand/' . $iconFile,
