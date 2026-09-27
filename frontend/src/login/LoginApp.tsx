@@ -23,11 +23,9 @@ import { useState } from 'react';
 
 import { ForgotForm } from './components/ForgotForm';
 import { ForgotSentView } from './components/ForgotSentView';
-import { LoginAboutModal } from './components/LoginAboutModal';
 import { LoginCard } from './components/LoginCard';
 import { LoginForm } from './components/LoginForm';
 import { TwoFactorForm } from './components/TwoFactorForm';
-import { t } from './i18n';
 import type { LoginView } from './types';
 import { getSafeRedirectUrl, publicPath } from './utils';
 
@@ -45,7 +43,6 @@ export function LoginApp() {
   const [view, setView] = useState<LoginView>('login');
   const [tfaMode, setTfaMode] = useState<'code' | 'recovery'>('code');
   const [priorRoute, setPriorRoute] = useState(config.priorRoute);
-  const [showAbout, setShowAbout] = useState(false);
 
   function handleLoginSuccess(route: string, passwordChangeRequired?: boolean) {
     const destination = route || priorRoute;
@@ -125,26 +122,6 @@ export function LoginApp() {
       <LoginCard logoUrl={config.logoDarkUrl} supportUrl={config.supportUrl}>
         <div className="login-view-enter">{renderView()}</div>
       </LoginCard>
-
-      {showAbout && <LoginAboutModal onClose={() => setShowAbout(false)} />}
-
-      <p className="login-footer">
-        <span className="login-footer-badge">{config.version}</span>
-        {!config.removeLicenceFromLogin && config.sourceUrl && (
-          <>
-            <span className="login-footer-sep">|</span>
-            <a href={config.sourceUrl}>{t('sourceLabel')}</a>
-          </>
-        )}
-        {!config.removeLicenceFromLogin && (
-          <>
-            <span className="login-footer-sep">|</span>
-            <button type="button" onClick={() => setShowAbout(true)}>
-              {t('aboutLabel')}
-            </button>
-          </>
-        )}
-      </p>
     </div>
   );
 }
